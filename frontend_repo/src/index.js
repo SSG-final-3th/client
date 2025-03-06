@@ -12,16 +12,20 @@ import AllProudcts from "./pages/product/AllProducts";
 import Login from "./pages/login/Login";
 import Mypage from "./pages/Mypage";
 import FindId from "./pages/login/FindId";
+import { action as authAction } from "./pages/login/Login";
+import { tokenProviderLoader } from "./auth/tokenProviderService";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     errorElement: <NotFound />,
+    id: "root",
+    loader: tokenProviderLoader, // 로그인시 localStorage에 저장된 token과 userid값을 필요시 제공하는 역할 담당.
     children: [
       { index: true, path: "/", element: <Home /> },
       //{ path: "/products", element: <AllProudcts /> },
-      { path: "/login", element: <Login /> },
+      { path: "/login", element: <Login />, action: authAction },
       { path: "/mypage", element: <Mypage /> },
       { path: "/findid", element: <FindId /> },
       // {
