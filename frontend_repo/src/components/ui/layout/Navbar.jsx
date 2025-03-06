@@ -1,13 +1,28 @@
+import { MdOutlineShoppingBag } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { FiShoppingBag } from "react-icons/fi";
-import { BsFillPencilFill } from "react-icons/bs";
-import User from "../member/User";
-import Button from "./ui/Button";
-import { useAuthContext } from "../context/AuthContext";
 import CartStatus from "../cart/CartStatus";
 
 export default function Navbar() {
-  const { user, login, logout } = useAuthContext();
+  return (
+    <>
+      <header className="flex justify-between border-b border-gray-300 p-2">
+        <Link to="/" className="flex items-center text-4xl text-brand">
+          <MdOutlineShoppingBag />
+          <h1>OF MART</h1>
+        </Link>
+        <nav className="flex items-center gap-4">
+          <Link to="/products">Products</Link>
+          <Link to="/carts">
+            <CartStatus />
+          </Link>
+        </nav>
+      </header>
+    </>
+  );
+}
+
+/*
+const { user, login, logout } = useAuthContext();
   //구조 분해 할당을 통해서 3가지 요소를 커스텀 훅인 useAuthContext를 통해서 가져온다
   return (
     <header className="flex justify-between border-b border-gray-300 p-2">
@@ -32,5 +47,4 @@ export default function Navbar() {
         {user && <Button text={"Logout"} onClick={logout} />}
       </nav>
     </header>
-  );
-}
+    */
