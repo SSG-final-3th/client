@@ -8,10 +8,16 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NotFound from "./pages/error/NotFound";
 import Home from "./pages/Home";
 import AllProudcts from "./pages/product/AllProducts";
-
 import Login from "./pages/login/Login";
-import Mypage from "./pages/Mypage";
 import FindId from "./pages/login/FindId";
+<<<<<<< Updated upstream
+=======
+import { action as authAction } from "./pages/login/Login";
+import { tokenProviderLoader } from "./auth/tokenProviderService";
+import Mypage, { loader as mypageLoader } from "./pages/mypage/Mypage";
+import DeleteAccount, { loader as deleteAccountLoader } from "./pages/mypage/DeleteAccount";
+import EditProfile, { loader as editProfileLoader } from "./pages/mypage/EditProfile";
+>>>>>>> Stashed changes
 
 const router = createBrowserRouter([
   {
@@ -21,9 +27,17 @@ const router = createBrowserRouter([
     children: [
       { index: true, path: "/", element: <Home /> },
       //{ path: "/products", element: <AllProudcts /> },
+<<<<<<< Updated upstream
       { path: "/login", element: <Login /> },
       { path: "/mypage", element: <Mypage /> },
+=======
+      { path: "/login", element: <Login />, action: authAction },
+      { path: "/mypage", element: <Mypage />, loader: mypageLoader },
+      { path: "/mypage/edit", element: <EditProfile />, loader: editProfileLoader },
+      { path: "/mypage/delete", element: <DeleteAccount />, loader: deleteAccountLoader },
+>>>>>>> Stashed changes
       { path: "/findid", element: <FindId /> },
+      {},
       // {
       //   path: "/products/new",
       //   element: (
