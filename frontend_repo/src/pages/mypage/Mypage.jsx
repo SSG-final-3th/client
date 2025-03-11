@@ -1,6 +1,6 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { fetchMypageHome } from "../../api/httpMemberService";
-import { getAuthToken } from "../../auth/tokenProviderService";
+import { getAuthToken } from "../../context/tokenProviderService";
 import "./Mypage.css";
 import mart from "../../assets/images/mart.png";
 

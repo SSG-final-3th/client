@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetchMypageHome, fetchUpdateProfile } from "../../api/httpMemberService";
 import { useNavigate, useLoaderData } from "react-router-dom";
-import { getAuthToken } from "../../auth/tokenProviderService";
+import { getAuthToken } from "../../context/tokenProviderService";
 import "./EditProfile.css";
 
 const EditProfile = () => {

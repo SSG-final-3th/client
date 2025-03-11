@@ -1,7 +1,7 @@
 import React from "react";
 import { fetchDeleteAccount } from "../../api/httpMemberService";
 import { useNavigate, useLoaderData } from "react-router-dom";
-import { getAuthToken } from "../../auth/tokenProviderService";
+import { getAuthToken } from "../../context/tokenProviderService";
 
 const DeleteAccount = () => {
   const user = useLoaderData(); //

@@ -10,12 +10,13 @@ import Home from "./pages/Home";
 import AllProudcts from "./pages/product/AllProducts";
 import Login from "./pages/login/Login";
 import FindId from "./pages/login/FindId";
-
 import { action as authAction } from "./pages/login/Login";
-import { tokenProviderLoader } from "./auth/tokenProviderService";
+
 import Mypage, { loader as mypageLoader } from "./pages/mypage/Mypage";
 import DeleteAccount, { loader as deleteAccountLoader } from "./pages/mypage/DeleteAccount";
 import EditProfile, { loader as editProfileLoader } from "./pages/mypage/EditProfile";
+import Signup from "./pages/login/Signup";
+import { action as signUpAction } from "./pages/login/Signup";
 
 const router = createBrowserRouter([
   {
@@ -30,7 +31,7 @@ const router = createBrowserRouter([
       { path: "/mypage", element: <Mypage />, loader: mypageLoader },
       { path: "/mypage/edit", element: <EditProfile />, loader: editProfileLoader },
       { path: "/mypage/delete", element: <DeleteAccount />, loader: deleteAccountLoader },
-
+      { path: "/signup", element: <Signup />, action: signUpAction },
       { path: "/findid", element: <FindId /> },
       {},
       // {
