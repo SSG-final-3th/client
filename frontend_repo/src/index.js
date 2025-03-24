@@ -36,6 +36,8 @@ import AppTwo from "./AppTwo";
 import Search from "./pages/Search/Search";
 import Admin from "./pages/admin/Admin";
 
+import Favorites from "./pages/mypage/Favorites";
+
 const router = createBrowserRouter([
   {
     path: "/search",
@@ -123,6 +125,10 @@ const router = createBrowserRouter([
       {
         path: "/auth/kakao/callback",
         element: <KakaoCallback />,
+      },
+      {
+        path: "/favorites",
+        element: <Favorites />,
       },
     ],
   },

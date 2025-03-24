@@ -50,7 +50,6 @@ export async function fetchProductDetail(productCode) {
   return (await instance.get(`/product/detail/${productCode}`)).data;
 }
 
-
 // 리뷰 목록 불러오기
 // 리뷰 관련 API
 export async function fetchProductReviews(productCode) {
@@ -118,8 +117,7 @@ export async function fetchCartItems(token) {
 export async function addToCart(cartData, token) {
   if (!token) throw new Error("🚨 인증 토큰이 없습니다.");
   if (!cartData.productCode) throw new Error("🚨 상품 코드는 필수입니다.");
-  if (typeof cartData.quantity !== "number" || cartData.quantity < 1)
-    throw new Error("🚨 수량은 1 이상이어야 합니다.");
+  if (typeof cartData.quantity !== "number" || cartData.quantity < 1) throw new Error("🚨 수량은 1 이상이어야 합니다.");
 
   return (
     await instance.post(`/cart/add`, cartData, {

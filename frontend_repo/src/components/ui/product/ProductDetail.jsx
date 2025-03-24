@@ -46,7 +46,8 @@ const ProductDetail = () => {
     try {
       await addToCart(cartData, token);
       console.log("장바구니에 추가된 상품:", cartData);
-      alert(`${product.productName}이 장바구니에 추가되었습니다!`);
+
+      alert(`'${product.productName}' 상품이 장바구니에 추가되었습니다!`);
 
       // 데이터 전달하면서 장바구니 페이지로 이동
       navigate("/carts", { state: { cartItem: cartData } });
@@ -56,28 +57,19 @@ const ProductDetail = () => {
     }
   };
 
-  if (loading)
-    return (
-      <p className="text-center mt-10 text-lg">상품 정보를 불러오는 중...</p>
-    );
+  if (loading) return <p className="text-center mt-10 text-lg">상품 정보를 불러오는 중...</p>;
   if (error) return <p className="text-center text-red-500">{error}</p>;
   if (!product) return null;
 
   return (
     <div className="flex flex-col items-center bg-[#f8f5e6] min-h-screen p-6">
       <div className="w-full max-w-md border rounded-lg bg-yellow-400 flex items-center justify-center max-h-[400px]">
-        <img
-          src={product.image}
-          alt={product.productName}
-          className="w-full h-auto object-contain p-4"
-        />
+        <img src={product.image} alt={product.productName} className="w-full h-auto object-contain p-4" />
       </div>
 
       <div className="w-full max-w-md mt-6">
         <h2 className="text-xl font-bold">{product.productName}</h2>
-        <p className="text-red-500 font-bold text-lg">
-          {product.price.toLocaleString()} 원
-        </p>
+        <p className="text-red-500 font-bold text-lg">{product.price.toLocaleString()} 원</p>
       </div>
 
       <div className="w-full max-w-md mt-6 flex gap-4">
