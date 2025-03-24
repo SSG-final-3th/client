@@ -3,7 +3,7 @@ import {
   fetchFindAllProductCode,
   fetchDeleteProductCode,
 } from "../../api/httpAdminService";
-import ListComponents from "../../components/ui/admin/ListComponents"; // ListComponents 컴포넌트 임포트
+import AllProductCodes from "../../components/ui/admin/AllProductCodes"; // AllProductCodes 컴포넌트 임포트
 
 export default function AdminAllProducts() {
   const [error, setError] = useState(null); // 오류 상태
@@ -46,7 +46,6 @@ export default function AdminAllProducts() {
     try {
       await fetchDeleteProductCode(delProductCode); // 서버에서 상품 삭제
       console.log("상품 삭제 성공");
-      alert("삭제되었습니다.");
 
       // 로컬 상태에서 해당 상품 삭제
       setProductData((prevData) =>
@@ -124,7 +123,7 @@ export default function AdminAllProducts() {
 
       {/* 상품 목록 표시 */}
       {productData.length > 0 ? (
-        <ListComponents
+        <AllProductCodes
           data={productData} // 상품 데이터
           dataType="product" // 데이터 타입 예시
           renderRow={renderRow} // 행 렌더링 함수

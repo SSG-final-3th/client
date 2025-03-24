@@ -8,6 +8,8 @@ import {
 import { fetchAuthenticate } from "../../api/httpMemberService"; // 상대 경로로 가져오기
 import { setAuthToken } from "../../auth/tokenProviderService";
 import Logo from "../../assets/images/logo/Logo.png";
+import KakaoLoginButton from "../../components/ui/KakaoLoginButton";
+import GoogleLoginButton from "../../components/ui/GoogleLoginButton";
 
 function Login() {
   // 예외처리
@@ -16,11 +18,11 @@ function Login() {
   console.log("useActionData:", data);
 
   const handleResetPassword = () => {
-    navigate("/reset-password"); // 비밀번호 재설정 페이지로 이동
+    navigate("/reset-password");
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full   text-xl  h-full">
+    <div className="flex flex-col items-center justify-center w-full text-xl h-full">
       <img src={Logo} width="250" height="250" className="mb-5" alt="logo" />
 
       {data && <p>{data.message}</p>}
@@ -47,6 +49,14 @@ function Login() {
           </button>
         </div>
       </Form>
+
+      {/* 소셜 로그인 버튼들 */}
+      <div className="w-full flex flex-col items-center mb-4">
+        <p className="text-[#6c6c6c] mb-2">소셜 계정으로 로그인</p>
+        <GoogleLoginButton /> {/* Google 로그인 버튼 */}
+        <KakaoLoginButton />
+      </div>
+
       <div className="text-center">
         <a
           href="/findid"
