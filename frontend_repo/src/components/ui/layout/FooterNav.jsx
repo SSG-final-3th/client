@@ -1,11 +1,8 @@
 import React, { useRef } from "react";
-import {
-  RiMenuLine,
-  RiStarLine,
-  RiHome2Line,
-  RiUser3Line,
-  RiShoppingCartLine,
-} from "react-icons/ri";
+import { CiMenuBurger, CiStar } from "react-icons/ci";
+import { SlHome } from "react-icons/sl";
+import { VscAccount } from "react-icons/vsc";
+import { BsCart } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 
 const styles = `
@@ -16,9 +13,9 @@ const styles = `
       text-shadow: none;
     }
     100% {
-      transform: translateY(-22px);
+      transform: translateY(-33px);
       transform-origin: 50% 50%;
-      text-shadow: 0 1px 0 #cccccc, 0 2px 0 #cccccc, 0 3px 0 #cccccc, 0 4px 0 #cccccc, 0 5px 0 #cccccc, 0 6px 0 #cccccc, 0 30px 20px rgba(0, 0, 0, 0.2);
+      text-shadow: 0 1px 0 #cccccc, 0 2px 0 #cccccc, 0 3px 0 #cccccc, 0 4px 0 #cccccc, 0 5px 0 #cccccc, 0 6px 0 #cccccc, 0 7px 0 #cccccc, 0 8px 0 #cccccc, 0 9px 0 #cccccc, 0 50px 30px rgba(0, 0, 0, 0.3);
     }
   }
 
@@ -54,7 +51,7 @@ const FooterNav = () => {
 
   return (
     <footer
-      className="bg-white text-gray-500 px-1.5 ml-1 h rounded-sm"
+      className="bg-white text-gray-500 py-4 px-4 mt-4 ml-0.5 rounded-3xl"
       style={{
         boxShadow:
           "0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 4px 6px -1px rgba(0, 0, 0, 0.1)",
@@ -63,34 +60,34 @@ const FooterNav = () => {
       <style>{styles}</style> {/* CSS 애니메이션을 컴포넌트에 추가 */}
       <nav className="container mx-auto">
         <ul className="flex flex-wrap items-center justify-between space-y-4 sm:space-y-0 sm:flex-nowrap">
-          <li className="flex flex-col items-center w-/5 sm:w-auto">
+          <li className="flex flex-col items-center w-1/5 sm:w-auto">
             <Link
               to="/categoryList"
-              className="flex flex-col items-center text-black hover:text-[#F9E79F] transition duration-300"
+              className="flex flex-col items-center hover:text-[#F9E79F] transition duration-300"
             >
-              <RiMenuLine className="text-2xl mb-1" />
+              <CiMenuBurger className="text-3xl mb-1" />
               <span className="text-xs font-medium">카테고리</span>
             </Link>
           </li>
           <li className="flex flex-col items-center w-1/5 sm:w-auto">
             <Link
               to="/"
-              className="flex flex-col items-center text-black hover:text-[#cece92] transition duration-300"
+              className="flex flex-col items-center hover:text-[#cece92] transition duration-300"
             >
-              <RiHome2Line className="text-2xl mb-1" />
+              <SlHome className="text-3xl mb-1" />
               <span className="text-xs font-medium">홈</span>
             </Link>
           </li>
 
           <li className="flex flex-col items-center w-1/5 sm:w-auto relative">
             <Link
-              to={token ? "/favorites" : "/login"} // token 확인 후 favorites 또는 login으로 이동
+              to="/favorites"
               className="w-12 h-12 bg-[#403c23] text-white rounded-full flex items-center justify-center shadow-md shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06)] mb-1"
               ref={starRef}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              <RiStarLine className="text-2xl" />
+              <CiStar className="text-3xl" />
             </Link>
           </li>
 
@@ -98,18 +95,18 @@ const FooterNav = () => {
             {token ? (
               <Link
                 to="/mypage"
-                className="flex flex-col items-center text-black hover:text-[#F9E79F] transition duration-300"
+                className="flex flex-col items-center hover:text-[#F9E79F] transition duration-300"
               >
-                <RiUser3Line className="text-2xl mb-1" />
+                <VscAccount className="text-3xl mb-1" />
                 <span className="text-xs font-medium">MY</span>
               </Link>
             ) : (
               <Link
                 to="/login"
-                className="flex flex-col items-center text-black hover:text-[#F9E79F] transition duration-300"
+                className="flex flex-col items-center hover:text-[#F9E79F] transition duration-300"
               >
-                <RiUser3Line className="text-2xl mb-1" />
-                <span className="text-xs font-medium">내정보</span>
+                <VscAccount className="text-3xl mb-1" />
+                <span className="text-xs font-medium">MY</span>
               </Link>
             )}
           </li>
@@ -118,17 +115,17 @@ const FooterNav = () => {
             {token ? (
               <Link
                 to="/carts"
-                className="flex flex-col items-center text-black hover:text-[#F9E79F] transition duration-300"
+                className="flex flex-col items-center hover:text-[#F9E79F] transition duration-300"
               >
-                <RiShoppingCartLine className="text-2xl mb-1" />
+                <BsCart className="text-3xl mb-1" />
                 <span className="text-xs font-medium">장바구니</span>
               </Link>
             ) : (
               <Link
                 to="/login"
-                className="flex flex-col items-center text-black hover:text-[#F9E79F] transition duration-300"
+                className="flex flex-col items-center hover:text-[#F9E79F] transition duration-300"
               >
-                <RiShoppingCartLine className="text-2xl mb-1" />
+                <BsCart className="text-3xl mb-1" />
                 <span className="text-xs font-medium">장바구니</span>
               </Link>
             )}

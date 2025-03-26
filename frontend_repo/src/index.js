@@ -13,12 +13,8 @@ import FindId from "./pages/login/FindId";
 import { action as authAction } from "./pages/login/Login";
 import Mypage, { loader as mypageLoader } from "./pages/mypage/Mypage";
 import FoundId from "../src/pages/login/FoundId";
-import DeleteAccount, {
-  loader as deleteAccountLoader,
-} from "./pages/mypage/DeleteAccount";
-import EditProfile, {
-  loader as editProfileLoader,
-} from "./pages/mypage/EditProfile";
+import DeleteAccount, { loader as deleteAccountLoader } from "./pages/mypage/DeleteAccount";
+import EditProfile, { loader as editProfileLoader } from "./pages/mypage/EditProfile";
 import Signup from "./pages/login/Signup";
 import { action as signUpAction } from "./pages/login/Signup";
 import SelectCategory from "./pages/login/SelectCategory";
@@ -61,10 +57,9 @@ import AdminAllEvent from "./pages/admin/AdminAllEvent";
 import AdminDeleteEvent from "./pages/admin/AdminDeleteEvent";
 import AdminUpdateEvent from "./pages/admin/AdminUpdateEvent";
 import AdminAddEvent from "./pages/admin/AdminAddEvent";
-
-import EditCategory from "./pages/mypage/EditCategory";
-
+import OrderPage from "./pages/order/OrderPage";
 import Favorites from "./pages/mypage/Favorites";
+import OrderComplete from "./pages/order/OrderComplete";
 
 const router = createBrowserRouter([
   // AppTwo 기반 라우트
@@ -115,7 +110,9 @@ const router = createBrowserRouter([
 
       // 장바구니 및 주문
       { path: "/carts", element: <MyCart /> },
-      { path: "/order", element: <OrderProduct /> },
+      { path: "/order", element: <OrderPage /> },
+      { path: "/order/complete/:imp_uid", element: <OrderComplete /> },
+      { path: "/order/complete", element: <OrderComplete /> },
 
       // 카테고리 및 상품
       { path: "/categoryList", element: <CategoryList /> },
@@ -156,11 +153,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/favorites",
-        element: <Home />,
-      },
-      {
-        path: "/mypage/editcategory",
-        element: <EditCategory />,
+        element: <Favorites />,
       },
       {
         path: "/auth/kakao/callback",
