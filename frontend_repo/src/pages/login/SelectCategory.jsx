@@ -1,8 +1,6 @@
-// src/pages/SelectCategory.jsx
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { fetchAddLikeCategory } from "../../api/httpCategoryService"; // API 함수 import
-import CategoryButton from "../../components/ui/layout/CategoryButton"; // CategoryButton 컴포넌트 import
+import { fetchAddLikeCategory } from "../../api/httpCategoryService"; // api 파일에서 함수 import
 
 function SelectCategory() {
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -80,12 +78,19 @@ function SelectCategory() {
       </h1>
       <div className="grid grid-cols-2 gap-4">
         {categories.map((category) => (
-          <CategoryButton
+          <button
             key={category.value}
-            category={category}
-            isSelected={selectedCategories.includes(category.value)}
-            toggleCategory={toggleCategory}
-          />
+            onClick={() => toggleCategory(category)}
+            className={`px-3 py-8 rounded-xl text-xl font-semibold transition-all duration-300
+              ${
+                selectedCategories.includes(category.value)
+                  ? "bg-yellow-400 text-black"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }
+              focus:outline-none`}
+          >
+            {category.name}
+          </button>
         ))}
       </div>
       <div className="mt-6">
