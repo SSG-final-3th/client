@@ -30,9 +30,7 @@ const ProductDetail = () => {
         setProduct(productData);
 
         // 전체 재고량 가져오기
-        const inventoryData = await fetchtotalQuantityByProductCode(
-          productCode
-        );
+        const inventoryData = await fetchtotalQuantityByProductCode(productCode);
         setInventoryQuantity(inventoryData.data.totalQuantity);
 
         // 모든 지점 목록 가져오기
@@ -60,10 +58,7 @@ const ProductDetail = () => {
     if (branchName) {
       try {
         // 선택된 지점과 상품 코드로 재고량을 가져오는 API 호출
-        const response = await fetchQuantityByProductCodeAndBranchName(
-          productCode,
-          branchName
-        );
+        const response = await fetchQuantityByProductCodeAndBranchName(productCode, branchName);
 
         if (response.status === 200 && response.data) {
           setBranchInventoryQuantity(response.data.quantity); // 응답에서 재고량 가져오기
@@ -117,37 +112,24 @@ const ProductDetail = () => {
         quantity: 1,
         productName: product.productName,
         price: product.price,
+        image: product.image,
       },
     });
   };
 
-  if (loading)
-    return (
-      <p className="text-center mt-10 text-lg font-medium text-gray-700">
-        상품 정보를 불러오는 중...
-      </p>
-    );
-  if (error)
-    return <p className="text-center text-red-500 font-medium">{error}</p>;
+  if (loading) return <p className="text-center mt-10 text-lg font-medium text-gray-700">상품 정보를 불러오는 중...</p>;
+  if (error) return <p className="text-center text-red-500 font-medium">{error}</p>;
   if (!product) return null;
 
   return (
     <div className="flex flex-col items-center bg-white min-h-screen p-6">
       <div className="w-full max-w-md border border-gray-200 rounded-sm bg-white flex items-center justify-center max-h-[400px] shadow-md overflow-hidden">
-        <img
-          src={product.image}
-          alt={product.productName}
-          className="w-full h-auto object-contain p-4"
-        />
+        <img src={product.image} alt={product.productName} className="w-full h-auto object-contain p-4" />
       </div>
 
       <div className="w-full max-w-md mt-6">
-        <h2 className="text-xl font-bold text-black text-left">
-          {product.productName}
-        </h2>
-        <p className="text-black font-bold text-lg mt-2 text-left">
-          {product.price.toLocaleString()} 원
-        </p>
+        <h2 className="text-xl font-bold text-black text-left">{product.productName}</h2>
+        <p className="text-black font-bold text-lg mt-2 text-left">{product.price.toLocaleString()} 원</p>
       </div>
 
       {/* 지점별 재고량과 전체 재고량을 양옆에 배치 */}
@@ -175,9 +157,7 @@ const ProductDetail = () => {
           {/* 지점별 재고량 표시 */}
           {selectedBranch && (
             <div className="w-full max-w-md mt-2 flex justify-end items-center">
-              <p className="text-gray-700">
-                해당 지점 재고량: {branchInventoryQuantity}개
-              </p>
+              <p className="text-gray-700">해당 지점 재고량: {branchInventoryQuantity}개</p>
             </div>
           )}
         </div>

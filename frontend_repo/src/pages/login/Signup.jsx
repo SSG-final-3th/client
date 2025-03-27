@@ -1,8 +1,6 @@
 import { Form, redirect, useActionData } from "react-router-dom";
 import { useState } from "react";
 import { fetchSignup } from "../../api/httpMemberService"; // 상대 경로로 가져오기
-import { fetchOnlineCoupon } from "../../api/httpCouponService";
-import { fetchOfflineCoupon } from "../../api/httpCouponService";
 
 function Signup() {
   // 예외처리 (400 또는 500 발생됨)
@@ -268,16 +266,7 @@ export async function action({ request }) {
   try {
     response = await fetchSignup(authData);
     console.log("action.response>:", response);
-
-    // 회원가입 후 쿠폰 발급 API 호출
-    const couponResponse = await fetchOnlineCoupon(authData.userId); // 회원가입 후 쿠폰 발급 요청
-    console.log("쿠폰 발급 응답:", couponResponse);
-
-    // 회원가입 후 쿠폰 발급 API 호출
-    const couponResponse2 = await fetchOfflineCoupon(authData.userId); // 회원가입 후 쿠폰 발급 요청
-    console.log("쿠폰 발급 응답:", couponResponse2);
-
-    alert("회원가입이 완료되었습니다. 신규 회원 쿠폰을 확인하세요!");
+    alert("회원가입이 완료되었습니다.");
   } catch (e) {
     console.log(">>>>>>>>>>>>>>>>>ERROR", e);
     if (e.status === 400 || e.status === 500) {
