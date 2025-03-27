@@ -45,7 +45,6 @@ const ListComponents = ({
   text3,
   text4,
   text5,
-  text6,
   children, // 직접 tbody 컴포넌트를 넘겨줄 수도 있음
   renderRow, // 커스텀 행 렌더링 함수
 }) => {
@@ -58,10 +57,9 @@ const ListComponents = ({
             <th className="px-4 py-3 text-left font-medium text-sm">{text2}</th>
             <th className="px-4 py-3 text-left font-medium text-sm">{text3}</th>
             <th className="px-4 py-3 text-left font-medium text-sm">{text4}</th>
-            <th className="px-4 py-3 text-left font-medium text-sm">{text5}</th>
             {showDeleteCheckbox && (
               <th className="px-4 py-3 text-left font-medium text-sm">
-                {text6}
+                {text5}
               </th>
             )}
           </tr>

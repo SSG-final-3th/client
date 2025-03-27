@@ -63,6 +63,7 @@ export default function AdminAllProducts() {
           text2="카테고리"
           text3="상품명"
           text4="가격"
+          text5="삭제"
         />
       ) : (
         <div>Loading...</div>

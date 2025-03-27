@@ -97,7 +97,7 @@ const OrderPage = () => {
         buyer_tel: formData.phoneNumber,
         buyer_addr: formData.addr1 + " " + formData.addr2,
         buyer_postcode: formData.post,
-        m_redirect_url: "http://localhost:3000/order/complete", // PC/모바일 공통 리디렉션 주소
+        m_redirect_url: "http://localhost:3000/order/complete", // PC/모바일 모두 동일하게 이동
       },
       (rsp) => {
         if (rsp.success) {
@@ -112,11 +112,8 @@ const OrderPage = () => {
 
           sendOrderConfirm(orderData, token)
             .then(() => {
-              if (window.innerWidth > 768) {
-                // PC 환경이면 수동 리디렉트
-                navigate(`/order/complete?imp_uid=${rsp.imp_uid}`);
-              }
-              // 모바일은 아임포트가 m_redirect_url로 자동 리디렉트함
+              // PC에서는 redirect되므로 따로 navigate 필요 없음
+              console.log("주문 전송 완료");
             })
             .catch(() => alert("주문 처리 중 오류 발생"));
         } else {
