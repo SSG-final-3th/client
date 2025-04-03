@@ -7,10 +7,13 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { useEffect, useState } from "react";
 
 function App() {
-  //여기 무슨 코드??? 설명 필요
   const location = useLocation();
 
-  // Define the routes where SearchBar should be visible
+  // ✅ 현재 저장된 JWT 확인 (디버깅용)
+  const token = localStorage.getItem("jwtAuthToken");
+  console.log("📌 현재 저장된 JWT:", token);
+
+  // ✅ SearchBar를 보여줄 경로 설정
   const isHomeRoute = location.pathname === "/";
   const isProductCategoryRoute = matchPath(
     "/products/:categoryName",
@@ -24,7 +27,6 @@ function App() {
   const isProductHomeRoute = location.pathname === "/product/home";
   const isFavoriteProductHome = location.pathname === "/favorites";
 
-  // Combine the checks to determine if the SearchBar should be shown
   const showSearchBar =
     isHomeRoute ||
     isProductCategoryRoute ||
@@ -33,10 +35,8 @@ function App() {
     isSearchRoute ||
     isFavoriteProductHome;
 
-  //구글 OAuth 프로바이더 설정
-  const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID; // 구글 API에서 받은 ID
-
-  // 페이지가 완전히 로드된 후에만 GoogleOAuthProvider 초기화
+  // ✅ 구글 OAuth 프로바이더 설정
+  const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -47,12 +47,9 @@ function App() {
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <div className="flex flex-col App">
         <Navbar />
-        {showSearchBar && <SearchBar />}{" "}
-        {/* Render SearchBar only on specific routes */}
+        {showSearchBar && <SearchBar />}
         <main className="flex-grow overflow-auto">
-          {" "}
-          {/* 스크롤을 추가하기 위해 overflow-auto 설정 */}
-          <Outlet /> {/* Outlet (Home 페이지의 Banner와 Products를 포함) */}
+          <Outlet />
         </main>
         <FooterNav />
       </div>
