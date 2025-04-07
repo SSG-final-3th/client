@@ -37,7 +37,7 @@ import AdminAllProducts from "./pages/admin/AdminAllProducts";
 import AdminDeleteProducts from "./pages/admin/AdminDeleteProducts";
 import AdminUpdateProducts from "./pages/admin/AdminUpdateProducts";
 import AdminAddProducts from "./pages/admin/AdminAddProducts";
-
+import NaverCallback from "./components/ui/button/NaverCallback";
 import KakaoCallback from "./util/KakaoCallback";
 
 import AdminAllGoods from "./pages/admin/AdminAllGoods";
@@ -194,6 +194,10 @@ const router = createBrowserRouter([
       {
         path: "/auth/kakao/callback",
         element: <KakaoCallback />,
+      },
+      {
+        path: "/login/naver/callback",
+        element: <NaverCallback />,
       },
       //NaverMap
       {

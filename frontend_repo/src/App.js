@@ -7,11 +7,28 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { useEffect, useState } from "react";
 
 function App() {
-  const location = useLocation();
-
   // ✅ 현재 저장된 JWT 확인 (디버깅용)
   const token = localStorage.getItem("jwtAuthToken");
   console.log("📌 현재 저장된 JWT:", token);
+  // 🔽 여기에 토큰 처리 useEffect만 추가
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tokenFromUrl = urlParams.get("token");
+
+    if (tokenFromUrl) {
+      console.log("🎯 토큰 감지됨, 저장 중:", tokenFromUrl);
+      localStorage.setItem("jwtAuthToken", tokenFromUrl);
+
+      // ✅ URL에서 token 제거
+      urlParams.delete("token");
+      const newUrl =
+        window.location.pathname +
+        (urlParams.toString() ? "?" + urlParams.toString() : "");
+      window.history.replaceState({}, "", newUrl);
+    }
+  }, []);
+
+  const location = useLocation();
 
   // ✅ SearchBar를 보여줄 경로 설정
   const isHomeRoute = location.pathname === "/";
