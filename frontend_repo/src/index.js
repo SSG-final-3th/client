@@ -23,8 +23,12 @@ import KakaoCallback from "./util/KakaoCallback";
 
 // 마이페이지 관련
 import Mypage, { loader as mypageLoader } from "./pages/mypage/Mypage";
-import EditProfile, { loader as editProfileLoader } from "./pages/mypage/EditProfile";
-import DeleteAccount, { loader as deleteAccountLoader } from "./pages/mypage/DeleteAccount";
+import EditProfile, {
+  loader as editProfileLoader,
+} from "./pages/mypage/EditProfile";
+import DeleteAccount, {
+  loader as deleteAccountLoader,
+} from "./pages/mypage/DeleteAccount";
 import MyOrderInfo from "./pages/mypage/MyOrderInfo";
 import MyReviews from "./pages/mypage/MyReview";
 import EditCategory from "./pages/mypage/EditCategory";
@@ -91,9 +95,6 @@ import AdminQuestionDetail from "./pages/admin/AdminQuestionDetail";
 import StockPage from "./pages/adminchart/StockPage";
 import StockChartDetailPage from "./pages/adminchart/StockChartDetailPage";
 import StockAlarmPage from "./pages/adminchart/StockAlarmPage";
-
-// 챗봇 관련 컴포넌트 import 추가
-import ChatbotComponent from "./components/ui/chatbot/ChatbotComponent";
 
 // 챗봇 관련 컴포넌트 import 추가
 import ChatbotComponent from "./components/ui/chatbot/ChatbotComponent";
