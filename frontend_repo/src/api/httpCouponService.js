@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Axios 인스턴스 설정
 const instance = axios.create({
-  baseURL: "http://localhost:8090/emart",
+  baseURL: "http://k9testspringboot-env.eba-kduvbera.us-east-2.elasticbeanstalk.com/emart",
 
   timeout: 10000,
   headers: { "Content-Type": "application/json" },
@@ -12,9 +12,7 @@ const instance = axios.create({
 export async function fetchOnlineCoupon(userId) {
   console.log("fetchOnlineCoupon 요청");
 
-  const response = await instance.get(
-    `/coupon/newMemberOnlineCoupon/${userId}`
-  );
+  const response = await instance.get(`/coupon/newMemberOnlineCoupon/${userId}`);
 
   console.log("fetchOnlineCoupon.response:", response);
   return response;
@@ -24,9 +22,7 @@ export async function fetchOnlineCoupon(userId) {
 export async function fetchOfflineCoupon(userId) {
   console.log("fetchOfflineCoupon 요청");
 
-  const response = await instance.get(
-    `/coupon/newMemberOfflineCoupon/${userId}`
-  );
+  const response = await instance.get(`/coupon/newMemberOfflineCoupon/${userId}`);
 
   console.log("fetchOfflineCoupon.response:", response);
   return response;

@@ -2,11 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { consumeGoods } from "../../api/httpProductService";
 import { useLocation, useNavigate } from "react-router-dom";
-import {
-  fetchUserProfile,
-  sendOrderConfirm,
-  fetchDeleteCartItems,
-} from "../../api/httpOrderService";
+import { fetchUserProfile, sendOrderConfirm, fetchDeleteCartItems } from "../../api/httpOrderService";
 import { fetchDeleteCoupon } from "../../api/httpCouponService";
 import axios from "axios";
 import tossPayLogo from "../../assets/images/logo/tossPayLogo.png";
@@ -156,7 +152,7 @@ const OrderPage = () => {
       }
 
       const response = await axios.post(
-        "http://localhost:8090/emart/admin/branch/nearestWithStock",
+        "http://k9testspringboot-env.eba-kduvbera.us-east-2.elasticbeanstalk.com/emart/admin/branch/nearestWithStock",
         {
           latitude: latitude,
           longitude: longitude,
@@ -177,9 +173,7 @@ const OrderPage = () => {
           setHasAlternativeBranch(false);
           setUseAlternativeBranch(false);
         } else {
-          const otherBranchesWithStock = branchesWithStock.filter(
-            (branch) => branch.hasStock
-          );
+          const otherBranchesWithStock = branchesWithStock.filter((branch) => branch.hasStock);
 
           if (otherBranchesWithStock.length > 0) {
             console.log("재고 보유 매장:", otherBranchesWithStock);
@@ -194,7 +188,7 @@ const OrderPage = () => {
         }
       } else {
         const fallbackResponse = await axios.post(
-          "http://localhost:8090/emart/admin/branch/nearest",
+          "http://k9testspringboot-env.eba-kduvbera.us-east-2.elasticbeanstalk.com/emart/admin/branch/nearest",
           {
             latitude: latitude,
             longitude: longitude,
@@ -343,9 +337,7 @@ const OrderPage = () => {
     if (!benefit) return price;
 
     const discountPercent =
-      typeof benefit === "string" && benefit.includes("%")
-        ? parseInt(benefit.replace("%", ""), 10)
-        : benefit;
+      typeof benefit === "string" && benefit.includes("%") ? parseInt(benefit.replace("%", ""), 10) : benefit;
 
     const discountAmount = (price * discountPercent) / 100;
     return price - discountAmount;
@@ -356,9 +348,7 @@ const OrderPage = () => {
     if (!benefit) return 0;
 
     const discountPercent =
-      typeof benefit === "string" && benefit.includes("%")
-        ? parseInt(benefit.replace("%", ""), 10)
-        : benefit;
+      typeof benefit === "string" && benefit.includes("%") ? parseInt(benefit.replace("%", ""), 10) : benefit;
 
     return discountPercent;
   };
@@ -370,23 +360,13 @@ const OrderPage = () => {
     ? productInfo.price
     : 0;
 
-  const discountedPrice = selectedCoupon
-    ? getDiscountedPrice(originalPrice, selectedCoupon.benefits)
-    : originalPrice;
+  const discountedPrice = selectedCoupon ? getDiscountedPrice(originalPrice, selectedCoupon.benefits) : originalPrice;
 
-  const discountRate = selectedCoupon
-    ? getDiscountRate(selectedCoupon.benefits)
-    : 0;
+  const discountRate = selectedCoupon ? getDiscountRate(selectedCoupon.benefits) : 0;
 
   // 결제 처리 함수
   const handlePayment = (pgProvider) => {
-    if (
-      !formData.receiverName ||
-      !formData.post ||
-      !formData.addr1 ||
-      !formData.addr2 ||
-      !formData.phoneNumber
-    ) {
+    if (!formData.receiverName || !formData.post || !formData.addr1 || !formData.addr2 || !formData.phoneNumber) {
       alert("모든 기본 정보를 입력해주세요.");
       return;
     }
@@ -425,11 +405,7 @@ const OrderPage = () => {
               ? nearestBranch.branchName
               : defaultBranch;
 
-          const hasStock = useAlternativeBranch
-            ? true
-            : nearestBranch
-            ? nearestBranch.hasStock
-            : false;
+          const hasStock = useAlternativeBranch ? true : nearestBranch ? nearestBranch.hasStock : false;
 
           if (isFromCart) {
             const multiProductData = {
@@ -471,9 +447,7 @@ const OrderPage = () => {
                     state: {
                       selectedCoupon,
                       branchName: branchName,
-                      distance: useAlternativeBranch
-                        ? alternativeBranch?.distance
-                        : nearestBranch?.distance,
+                      distance: useAlternativeBranch ? alternativeBranch?.distance : nearestBranch?.distance,
                       hasStock: hasStock,
                       isAlternativeBranch: useAlternativeBranch,
                     },
@@ -534,9 +508,7 @@ const OrderPage = () => {
                     state: {
                       selectedCoupon,
                       branchName: branchName,
-                      distance: useAlternativeBranch
-                        ? alternativeBranch?.distance
-                        : nearestBranch?.distance,
+                      distance: useAlternativeBranch ? alternativeBranch?.distance : nearestBranch?.distance,
                       hasStock: hasStock,
                       isAlternativeBranch: useAlternativeBranch,
                     },
@@ -608,9 +580,7 @@ const OrderPage = () => {
             />
             <div className="flex-1">
               <h3 className="font-medium text-lg">{productInfo.productName}</h3>
-              <p className="text-gray-700 mt-1">
-                {productInfo.price?.toLocaleString()}원
-              </p>
+              <p className="text-gray-700 mt-1">{productInfo.price?.toLocaleString()}원</p>
             </div>
           </div>
         </div>
@@ -632,9 +602,7 @@ const OrderPage = () => {
             <div>
               <span className="font-bold text-sm">적용쿠폰: </span>
               <span className="text-sm">{selectedCoupon.couponName}</span> -
-              <span className="text-sm text-red-500 ml-1">
-                {selectedCoupon.benefits}
-              </span>
+              <span className="text-sm text-red-500 ml-1">{selectedCoupon.benefits}</span>
             </div>
             <button
               onClick={() => setSelectedCoupon(null)}
@@ -649,12 +617,7 @@ const OrderPage = () => {
       {/* 배송지 정보 */}
       <div className="mt-8">
         <h2 className="text-xl font-bold text-black mb-4 flex items-center">
-          <svg
-            className="w-5 h-5 mr-2"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M12 12.5C13.1046 12.5 14 11.6046 14 10.5C14 9.39543 13.1046 8.5 12 8.5C10.8954 8.5 10 9.39543 10 10.5C10 11.6046 10.8954 12.5 12 12.5Z"
               stroke="black"
@@ -684,14 +647,10 @@ const OrderPage = () => {
                 {profile.addr1} {profile.addr2}
               </div>
 
-              <div className="font-semibold text-gray-700 text-left">
-                우편번호
-              </div>
+              <div className="font-semibold text-gray-700 text-left">우편번호</div>
               <div className="text-black">{profile.post}</div>
 
-              <div className="font-semibold text-gray-700 text-left">
-                연락처
-              </div>
+              <div className="font-semibold text-gray-700 text-left">연락처</div>
               <div className="text-black">{profile.phoneNumber}</div>
             </div>
           </div>
@@ -703,14 +662,7 @@ const OrderPage = () => {
               fill="none"
               viewBox="0 0 24 24"
             >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              ></circle>
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
               <path
                 className="opacity-75"
                 fill="currentColor"
@@ -796,9 +748,7 @@ const OrderPage = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mx-auto"></div>
-            <p className="text-center mt-4">
-              처리 중입니다. 잠시만 기다려주세요.
-            </p>
+            <p className="text-center mt-4">처리 중입니다. 잠시만 기다려주세요.</p>
           </div>
         </div>
       )}
@@ -807,12 +757,7 @@ const OrderPage = () => {
       {nearestBranch && (
         <div className="mt-8 border-t border-gray-200 pt-6">
           <h3 className="font-bold text-xl text-black mb-4 flex items-center">
-            <svg
-              className="w-6 h-6 mr-2"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg className="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z"
                 fill="black"
@@ -843,9 +788,7 @@ const OrderPage = () => {
               </div>
               <div>
                 <p className="font-bold text-xl">{nearestBranch.branchName}</p>
-                <p className="text-gray-300 text-sm">
-                  {nearestBranch.branchAddress}
-                </p>
+                <p className="text-gray-300 text-sm">{nearestBranch.branchAddress}</p>
               </div>
             </div>
 
@@ -853,11 +796,7 @@ const OrderPage = () => {
               <div className="flex items-center">
                 {nearestBranch.hasStock ? (
                   <>
-                    <svg
-                      className="w-5 h-5 mr-1 text-green-400"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                    >
+                    <svg className="w-5 h-5 mr-1 text-green-400" viewBox="0 0 24 24" fill="none">
                       <path
                         d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2Z"
                         fill="currentColor"
@@ -870,17 +809,11 @@ const OrderPage = () => {
                         strokeLinejoin="round"
                       />
                     </svg>
-                    <span className="text-green-400 font-medium">
-                      재고 있음
-                    </span>
+                    <span className="text-green-400 font-medium">재고 있음</span>
                   </>
                 ) : (
                   <>
-                    <svg
-                      className="w-5 h-5 mr-1 text-red-400"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                    >
+                    <svg className="w-5 h-5 mr-1 text-red-400" viewBox="0 0 24 24" fill="none">
                       <path
                         d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2Z"
                         fill="currentColor"
@@ -905,70 +838,57 @@ const OrderPage = () => {
                 )}
               </div>
               <div className="bg-white bg-opacity-20 px-3 py-1 rounded-full">
-                <span className="text-sm font-medium">
-                  약 {nearestBranch.distance.toFixed(1)}km
-                </span>
+                <span className="text-sm font-medium">약 {nearestBranch.distance.toFixed(1)}km</span>
               </div>
             </div>
           </div>
 
           {/* 대체 매장 정보 - 재고가 없을 때만 표시 */}
-          {!nearestBranch.hasStock &&
-            hasAlternativeBranch &&
-            alternativeBranch && (
-              <div className="bg-gray-100 p-5 rounded-lg border border-gray-200">
-                <div className="flex justify-between items-center mb-3">
-                  <h4 className="font-medium text-lg">재고 매장</h4>
-                  <div className="flex items-center ml-8">
-                    {" "}
-                    {/* 여기에 ml-8 (margin-left) 추가 */}
-                    <input
-                      type="checkbox"
-                      id="useAlternativeBranch"
-                      checked={useAlternativeBranch}
-                      onChange={toggleAlternativeBranch}
-                      className="mr-2 h-4 w-4 cursor-pointer"
-                    />
-                    <label
-                      htmlFor="useAlternativeBranch"
-                      className="text-sm cursor-pointer"
-                    >
-                      이 지점에서 배송 받기
-                    </label>
-                  </div>
-                </div>
-                <div
-                  className={`p-4 rounded-lg ${
-                    useAlternativeBranch
-                      ? "bg-green-50 border border-green-200"
-                      : "bg-white"
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-medium flex items-center">
-                        {alternativeBranch.branchName}
-                        <span className="ml-2 text-xs text-green-600 bg-green-100 px-2 py-1 rounded-full">
-                          재고 있음
-                        </span>
-                      </p>
-                      <p className="text-xs text-gray-600 mt-1">
-                        {alternativeBranch.branchAddress}
-                      </p>
-                    </div>
-                    <div className="text-xs bg-black text-white px-3 py-1 rounded-full">
-                      {alternativeBranch.distance.toFixed(1)}km
-                    </div>
-                  </div>
-
-                  {useAlternativeBranch && (
-                    <p className="text-xs text-green-600 mt-3 font-medium border-t border-green-100 pt-2">
-                      ✅ 해당 지점에서 주문 상품을 배송합니다
-                    </p>
-                  )}
+          {!nearestBranch.hasStock && hasAlternativeBranch && alternativeBranch && (
+            <div className="bg-gray-100 p-5 rounded-lg border border-gray-200">
+              <div className="flex justify-between items-center mb-3">
+                <h4 className="font-medium text-lg">재고 매장</h4>
+                <div className="flex items-center ml-8">
+                  {" "}
+                  {/* 여기에 ml-8 (margin-left) 추가 */}
+                  <input
+                    type="checkbox"
+                    id="useAlternativeBranch"
+                    checked={useAlternativeBranch}
+                    onChange={toggleAlternativeBranch}
+                    className="mr-2 h-4 w-4 cursor-pointer"
+                  />
+                  <label htmlFor="useAlternativeBranch" className="text-sm cursor-pointer">
+                    이 지점에서 배송 받기
+                  </label>
                 </div>
               </div>
-            )}
+              <div
+                className={`p-4 rounded-lg ${
+                  useAlternativeBranch ? "bg-green-50 border border-green-200" : "bg-white"
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium flex items-center">
+                      {alternativeBranch.branchName}
+                      <span className="ml-2 text-xs text-green-600 bg-green-100 px-2 py-1 rounded-full">재고 있음</span>
+                    </p>
+                    <p className="text-xs text-gray-600 mt-1">{alternativeBranch.branchAddress}</p>
+                  </div>
+                  <div className="text-xs bg-black text-white px-3 py-1 rounded-full">
+                    {alternativeBranch.distance.toFixed(1)}km
+                  </div>
+                </div>
+
+                {useAlternativeBranch && (
+                  <p className="text-xs text-green-600 mt-3 font-medium border-t border-green-100 pt-2">
+                    ✅ 해당 지점에서 주문 상품을 배송합니다
+                  </p>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       )}
 
@@ -977,9 +897,7 @@ const OrderPage = () => {
         <h3 className="text-lg font-bold text-black">총 결제 금액</h3>
         {selectedCoupon ? (
           <>
-            <p className="line-through text-gray-500">
-              {originalPrice.toLocaleString()}원
-            </p>
+            <p className="line-through text-gray-500">{originalPrice.toLocaleString()}원</p>
             <p className="text-2xl font-bold text-black">
               {discountedPrice.toLocaleString()}
               <span className="text-sm ml-1">원</span>
@@ -1006,9 +924,7 @@ const OrderPage = () => {
                 fill="#000000"
               />
             </svg>
-            <span className="font-bold text-black text-base text-xl">
-              kakaopay
-            </span>
+            <span className="font-bold text-black text-base text-xl">kakaopay</span>
           </div>
         </button>
 

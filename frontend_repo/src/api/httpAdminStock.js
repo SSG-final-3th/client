@@ -2,7 +2,7 @@ import axios from "axios";
 
 // 공통 인스턴스 설정 (기반 경로: /emart)
 const instance = axios.create({
-  baseURL: "http://localhost:8090/emart",
+  baseURL: "http://k9testspringboot-env.eba-kduvbera.us-east-2.elasticbeanstalk.com/emart",
   timeout: 10000,
   headers: { "Content-Type": "application/json" },
 });

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8090/emart/api";
+const API_BASE_URL = "http://k9testspringboot-env.eba-kduvbera.us-east-2.elasticbeanstalk.com/emart/api";
 
 // Axios 인스턴스 생성
 const api = axios.create({

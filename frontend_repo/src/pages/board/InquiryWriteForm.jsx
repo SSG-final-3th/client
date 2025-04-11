@@ -18,7 +18,7 @@ const InquiryWriteForm = ({ onBack }) => {
     try {
       // 실제 API 엔드포인트
       const response = await axios.post(
-        "http://localhost:8090/emart/questions/add", // API 엔드포인트
+        "http://k9testspringboot-env.eba-kduvbera.us-east-2.elasticbeanstalk.com/emart/questions/add", // API 엔드포인트
         {
           userId: userId, // 인증된 사용자 ID
           title: title,
@@ -53,10 +53,7 @@ const InquiryWriteForm = ({ onBack }) => {
       {/* 폼 */}
       <form onSubmit={handleSubmit} className="flex-grow p-4 flex flex-col">
         <div className="mb-4">
-          <label
-            htmlFor="title"
-            className="block text-sm font-medium text-gray-700 mb-2"
-          >
+          <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
             제목
           </label>
           <input
@@ -71,10 +68,7 @@ const InquiryWriteForm = ({ onBack }) => {
         </div>
 
         <div className="flex-grow mb-4">
-          <label
-            htmlFor="content"
-            className="block text-sm font-medium text-gray-700 mb-2"
-          >
+          <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-2">
             내용
           </label>
           <textarea
@@ -87,10 +81,7 @@ const InquiryWriteForm = ({ onBack }) => {
           />
         </div>
 
-        <button
-          type="submit"
-          className="w-full bg-[#787669] text-white py-3 rounded-sm"
-        >
+        <button type="submit" className="w-full bg-[#787669] text-white py-3 rounded-sm">
           문의 작성 완료
         </button>
       </form>

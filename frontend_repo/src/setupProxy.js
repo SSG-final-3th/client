@@ -5,7 +5,7 @@ module.exports = function (app) {
   app.use(
     "/api/proxy/naver-map",
     createProxyMiddleware({
-      target: "http://localhost:8090",
+      target: "http://k9testspringboot-env.eba-kduvbera.us-east-2.elasticbeanstalk.com",
       changeOrigin: true,
       pathRewrite: {
         "^/api/proxy/naver-map": "/api/proxy/naver-map",
@@ -17,7 +17,7 @@ module.exports = function (app) {
   app.use(
     "/api",
     createProxyMiddleware({
-      target: "http://localhost:8090",
+      target: "http://k9testspringboot-env.eba-kduvbera.us-east-2.elasticbeanstalk.com",
       changeOrigin: true,
     })
   );

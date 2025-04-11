@@ -23,7 +23,7 @@ const InquiryEditForm = ({ inquiry, onBack }) => {
     try {
       // 실제 API 엔드포인트는 /update/{questionId}로 수정
       const response = await axios.put(
-        `http://localhost:8090/emart/questions/update/${inquiry.id}`, // questionId를 URL에 추가
+        `http://k9testspringboot-env.eba-kduvbera.us-east-2.elasticbeanstalk.com/emart/questions/update/${inquiry.id}`, // questionId를 URL에 추가
         {
           title: title,
           content: content,
@@ -57,10 +57,7 @@ const InquiryEditForm = ({ inquiry, onBack }) => {
       {/* 폼 */}
       <form onSubmit={handleSubmit} className="flex-grow p-4 flex flex-col">
         <div className="mb-4">
-          <label
-            htmlFor="title"
-            className="block text-sm font-medium text-gray-700 mb-2"
-          >
+          <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
             제목
           </label>
           <input
@@ -75,10 +72,7 @@ const InquiryEditForm = ({ inquiry, onBack }) => {
         </div>
 
         <div className="flex-grow mb-4">
-          <label
-            htmlFor="content"
-            className="block text-sm font-medium text-gray-700 mb-2"
-          >
+          <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-2">
             내용
           </label>
           <textarea
@@ -91,10 +85,7 @@ const InquiryEditForm = ({ inquiry, onBack }) => {
           />
         </div>
 
-        <button
-          type="submit"
-          className="w-full bg-[#787669] text-white py-3 rounded-sm"
-        >
+        <button type="submit" className="w-full bg-[#787669] text-white py-3 rounded-sm">
           수정 완료
         </button>
       </form>

@@ -14,7 +14,7 @@ const AnswerForm = ({ questionId, onAnswerAdded }) => {
 
     try {
       const response = await axios.post(
-        `http://localhost:8090/emart/answers/add/${questionId}`,
+        `http://k9testspringboot-env.eba-kduvbera.us-east-2.elasticbeanstalk.com/emart/answers/add/${questionId}`,
         answer,
         {
           headers: {

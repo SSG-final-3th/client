@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8090/emart/auth/kakao";
+const BASE_URL = "http://k9testspringboot-env.eba-kduvbera.us-east-2.elasticbeanstalk.com/emart/auth/kakao";
 
 // 카카오 로그인 요청 함수
 export const kakaoLogin = async (code) => {
