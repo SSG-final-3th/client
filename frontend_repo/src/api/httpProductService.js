@@ -48,3 +48,36 @@ export async function fetchQuantityByProductCodeAndBranchName(
   console.log("fetchQuantityByProductCodeAndBranchName.response:", response);
   return response;
 }
+
+// 상품 전체 조회 (정렬 옵션 포함)
+export async function fetchAllProducts(sort = "default") {
+  try {
+    const response = await instance.get(`/product`, {
+      params: {
+        sort: sort,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("상품 조회 실패:", error);
+    throw error;
+  }
+}
+
+// 상품 차감 요청 (결제 시 호출)
+export async function consumeGoods({ productCode, branchName, quantity }) {
+  try {
+    const response = await instance.delete(`/admin/consume`, {
+      // ✅ params는 config 위치에 있어야 함!
+      params: {
+        productCode,
+        branchName,
+        quantity,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("상품 차감 중 오류 발생:", error.response?.data || error);
+    throw error;
+  }
+}

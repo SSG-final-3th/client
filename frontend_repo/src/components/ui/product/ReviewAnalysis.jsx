@@ -22,12 +22,61 @@ ChartJS.register(
   LinearScale
 );
 
+// 범례 정렬 플러그인 정의
+const legendAlignmentPlugin = {
+  id: "legendAlignment",
+  afterRender: (chart) => {
+    // 차트가 렌더링된 후에 DOM을 직접 조작
+    setTimeout(() => {
+      const canvas = chart.canvas;
+      if (!canvas || !canvas.parentNode) return;
+
+      const legendItems = canvas.parentNode.querySelectorAll(
+        ".chartjs-legend-item"
+      );
+
+      if (legendItems && legendItems.length) {
+        // 모든 항목에 flex 스타일 적용
+        legendItems.forEach((item) => {
+          item.style.display = "flex";
+          item.style.alignItems = "center";
+        });
+
+        // 원 요소(마커) 찾기 및 정렬
+        const markers = canvas.parentNode.querySelectorAll(
+          ".chartjs-legend-item span"
+        );
+        if (markers && markers.length) {
+          // 기준이 될 첫 번째 마커의 위치 찾기
+          const firstMarkerRect = markers[0].getBoundingClientRect();
+          const referenceLeft = firstMarkerRect.left;
+
+          // 모든 마커를 기준 위치에 맞춤
+          markers.forEach((marker) => {
+            const rect = marker.getBoundingClientRect();
+            const diff = referenceLeft - rect.left;
+
+            if (diff !== 0) {
+              marker.style.marginLeft = `${diff}px`;
+            }
+
+            // 공통 스타일 적용
+            marker.style.marginRight = "8px";
+            marker.style.flexShrink = "0";
+          });
+        }
+      }
+    }, 0);
+  },
+};
+
 const ReviewAnalysis = () => {
   const { productCode } = useParams();
   const navigate = useNavigate();
   const [analysis, setAnalysis] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [loadingDots, setLoadingDots] = useState("");
 
   useEffect(() => {
     const fetchAnalysis = async () => {
@@ -47,6 +96,17 @@ const ReviewAnalysis = () => {
 
     fetchAnalysis();
   }, [productCode]);
+
+  // 로딩 애니메이션을 위한 useEffect
+  useEffect(() => {
+    if (!loading) return;
+
+    const interval = setInterval(() => {
+      setLoadingDots((prev) => (prev.length >= 3 ? "" : prev + "."));
+    }, 500);
+
+    return () => clearInterval(interval);
+  }, [loading]);
 
   // 별점 UI 생성
   const renderStars = (rating) => (
@@ -104,10 +164,29 @@ const ReviewAnalysis = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="text-center">
-          <div className="w-12 h-12 border-4 border-black border-t-transparent rounded-full animate-spin mx-auto"></div>
-          <p className="mt-4 text-gray-700 font-medium">리뷰 분석 중...</p>
+      <div className="flex justify-center items-center min-h-screen bg-gradient-to-b from-blue-50 to-white">
+        <div className="text-center p-8 rounded-xl shadow-lg bg-white">
+          <div className="relative mx-auto w-16 h-16">
+            <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin"></div>
+            <div
+              className="absolute top-0 left-0 w-16 h-16 border-4 border-transparent border-b-blue-300 rounded-full animate-spin"
+              style={{
+                animationDirection: "reverse",
+                animationDuration: "1.5s",
+              }}
+            ></div>
+          </div>
+
+          <h2 className="mt-6 text-xl font-bold text-gray-800">리뷰 분석 중</h2>
+          <p className="mt-2 text-gray-600">
+            데이터를 처리하고 있습니다{loadingDots}
+          </p>
+
+          <div className="mt-4 w-full bg-gray-200 rounded-full h-1.5">
+            <div className="bg-blue-500 h-1.5 rounded-full animate-pulse"></div>
+          </div>
+
+          <p className="mt-4 text-xs text-gray-500">잠시만 기다려 주세요</p>
         </div>
       </div>
     );
@@ -180,6 +259,36 @@ const ReviewAnalysis = () => {
         </h1>
       </div>
 
+      {/* 리뷰 카테고리 섹션 - 제품 이름 바로 아래에 배치 */}
+      {analysis.reviewCount > 0 &&
+        analysis.reviewCategories &&
+        analysis.reviewCategories.length > 0 && (
+          <div className="mb-6">
+            <div className="mb-2">
+              <span className="text-green-500 font-bold">✓</span>{" "}
+              <span className="text-black font-medium">
+                {analysis.reviewCount}명 참여
+              </span>
+            </div>
+            <div className="flex flex-col gap-2">
+              {analysis.reviewCategories.map((category, index) => (
+                <div
+                  key={`category-${index}`}
+                  className="flex items-center bg-blue-50 rounded-lg p-3 hover:bg-blue-100 transition-colors"
+                >
+                  <span className="text-xl mr-2">{category.emoji}</span>
+                  <span className="flex-grow text-gray-800">
+                    "{category.category}"
+                  </span>
+                  <span className="text-teal-600 font-medium">
+                    {category.count}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
       {analysis.reviewCount === 0 ? (
         <div className="border border-gray-200 p-6 rounded-sm bg-gray-50 mb-6">
           <p className="text-lg text-gray-800 mb-2">{analysis.summary}</p>
@@ -212,16 +321,70 @@ const ReviewAnalysis = () => {
               <div className="bg-black text-white px-4 py-3">
                 <h2 className="text-lg font-medium">감정 분석</h2>
               </div>
-              <div className="p-6" style={{ height: "280px" }}>
+              <div className="p-6" style={{ height: "300px" }}>
                 {chartData && (
                   <Pie
                     data={chartData}
                     options={{
                       responsive: true,
                       maintainAspectRatio: false,
+                      layout: {
+                        padding: {
+                          bottom: 20,
+                        },
+                      },
                       plugins: {
                         legend: {
-                          position: "right",
+                          position: "bottom",
+                          align: "start", // 왼쪽 정렬로 변경
+                          title: {
+                            display: true,
+                            text: "감정 카테고리",
+                            font: {
+                              weight: "bold",
+                              size: 12,
+                            },
+                            padding: {
+                              top: 3,
+                              bottom: 0,
+                            },
+                          },
+                          labels: {
+                            font: {
+                              size: 12,
+                            },
+                            padding: 5,
+                            usePointStyle: true,
+                            pointStyle: "circle",
+                            boxWidth: 20, // 모든 라벨의 상자 너비 고정
+                            boxHeight: 15, // 모든 라벨의 상자 높이 고정
+                            textAlign: "left", // 텍스트 왼쪽 정렬
+                            generateLabels: function (chart) {
+                              const data = chart.data;
+                              if (data.labels.length && data.datasets.length) {
+                                return data.labels.map(function (label, i) {
+                                  const meta = chart.getDatasetMeta(0);
+                                  const style = meta.controller.getStyle(i);
+
+                                  return {
+                                    text: `${label} (${data.datasets[0].data[
+                                      i
+                                    ].toFixed(1)}%)`,
+                                    fillStyle: style.backgroundColor,
+                                    strokeStyle: style.borderColor,
+                                    lineWidth: style.borderWidth,
+                                    pointStyle: "circle",
+                                    hidden: !chart.getDataVisibility(i),
+                                    index: i,
+                                  };
+                                });
+                              }
+                              return [];
+                            },
+                          },
+                          display: true,
+                          maxWidth: 300, // 범례 최대 너비 설정
+                          maxHeight: 80, // 범례 최대 높이 설정
                         },
                         tooltip: {
                           callbacks: {
@@ -234,6 +397,7 @@ const ReviewAnalysis = () => {
                         },
                       },
                     }}
+                    plugins={[legendAlignmentPlugin]} // 범례 정렬 플러그인 적용
                   />
                 )}
               </div>
@@ -244,7 +408,7 @@ const ReviewAnalysis = () => {
             {/* 긍정적 포인트 */}
             <div className="border border-gray-200 rounded-sm bg-white shadow-sm hover:border-gray-300 transition-all overflow-hidden">
               <div className="bg-green-600 text-white px-4 py-3">
-                <h2 className="text-lg font-medium">주요 긍정적 포인트</h2>
+                <h2 className="text-lg font-medium">긍정적 포인트</h2>
               </div>
               <div className="p-6">
                 <ul className="space-y-3">
@@ -264,7 +428,7 @@ const ReviewAnalysis = () => {
             {/* 부정적 포인트 */}
             <div className="border border-gray-200 rounded-sm bg-white shadow-sm hover:border-gray-300 transition-all overflow-hidden">
               <div className="bg-red-600 text-white px-4 py-3">
-                <h2 className="text-lg font-medium">주요 부정적 포인트</h2>
+                <h2 className="text-lg font-medium">부정적 포인트</h2>
               </div>
               <div className="p-6">
                 <ul className="space-y-3">
@@ -291,28 +455,6 @@ const ReviewAnalysis = () => {
               <p className="text-gray-800 leading-relaxed">
                 {analysis.summary}
               </p>
-            </div>
-          </div>
-
-          {/* 추천사항 */}
-          <div className="border border-gray-200 rounded-sm bg-white shadow-sm hover:border-gray-300 transition-all overflow-hidden">
-            <div className="bg-black text-white px-4 py-3">
-              <h2 className="text-lg font-medium">구매 시 고려사항</h2>
-            </div>
-            <div className="p-6">
-              <div className="space-y-4">
-                {analysis.recommendations.map((recommendation, index) => (
-                  <div
-                    key={`rec-${index}`}
-                    className="border-l-4 border-black pl-4 py-3 bg-gray-50"
-                  >
-                    <div className="flex items-start">
-                      <span className="text-yellow-500 mr-2">💡</span>
-                      <span className="text-gray-800">{recommendation}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </div>

@@ -23,12 +23,8 @@ import KakaoCallback from "./util/KakaoCallback";
 
 // 마이페이지 관련
 import Mypage, { loader as mypageLoader } from "./pages/mypage/Mypage";
-import EditProfile, {
-  loader as editProfileLoader,
-} from "./pages/mypage/EditProfile";
-import DeleteAccount, {
-  loader as deleteAccountLoader,
-} from "./pages/mypage/DeleteAccount";
+import EditProfile, { loader as editProfileLoader } from "./pages/mypage/EditProfile";
+import DeleteAccount, { loader as deleteAccountLoader } from "./pages/mypage/DeleteAccount";
 import MyOrderInfo from "./pages/mypage/MyOrderInfo";
 import MyReviews from "./pages/mypage/MyReview";
 import EditCategory from "./pages/mypage/EditCategory";
@@ -49,6 +45,7 @@ import ReviewAnalysis from "../src/components/ui/product/ReviewAnalysis";
 import SpecialDealsPage from "./pages/offline/SpecialDealsPage";
 import PriceHistoryChart from "./pages/offline/PriceHistoryChart";
 import NaverMap from "./components/ui/map/NaverMap";
+import BranchInfo from "./components/ui/map/BranchInfo";
 
 // 장바구니 및 주문 관련
 import MyCart from "./pages/cart/MyCart";
@@ -71,7 +68,7 @@ import AdminAddProducts from "./pages/admin/AdminAddProducts";
 // 관리자 - 아이템 관리
 import AdminAllGoods from "./pages/admin/AdminAllGoods";
 import AdminDeleteGoods from "./pages/admin/AdminDeleteGoods";
-//import AdminUpdateGoods from "./pages/admin/AdminUpdateGoods";
+// import AdminUpdateGoods from "./pages/admin/AdminUpdateGoods";
 import AdminAddGoods from "./pages/admin/AdminAddGoods";
 
 // 관리자 - 지점 관리
@@ -93,6 +90,13 @@ import AdminQuestionDetail from "./pages/admin/AdminQuestionDetail";
 // 관리자 - 차트/재고 관리
 import StockPage from "./pages/adminchart/StockPage";
 import StockChartDetailPage from "./pages/adminchart/StockChartDetailPage";
+import StockAlarmPage from "./pages/adminchart/StockAlarmPage";
+
+// 챗봇 관련 컴포넌트 import 추가
+import ChatbotComponent from "./components/ui/chatbot/ChatbotComponent";
+
+// 챗봇 관련 컴포넌트 import 추가
+import ChatbotComponent from "./components/ui/chatbot/ChatbotComponent";
 
 const router = createBrowserRouter([
   // AppTwo 기반 라우트
@@ -130,6 +134,9 @@ const router = createBrowserRouter([
       { path: "/foundid", element: <FoundId /> },
       { path: "/reset-password", element: <ResetPassword /> },
       { path: "/selectCategory", element: <SelectCategory /> },
+
+      // 챗봇 관련 경로 추가
+      { path: "/chatbot", element: <ChatbotComponent /> },
 
       // 마이페이지 관련
       { path: "/mypage", element: <Mypage />, loader: mypageLoader },
@@ -224,11 +231,17 @@ const router = createBrowserRouter([
         path: "/map",
         element: <NaverMap />,
       },
+      //branchInfo
+      {
+        path: "/BranchInfo",
+        element: <BranchInfo />,
+      },
 
       { path: "/special-deals", element: <SpecialDealsPage /> },
       { path: "/product-chart/:productCode", element: <PriceHistoryChart /> },
       { path: "/admin/stock", element: <StockPage /> },
       { path: "/stock-chart/:productCode", element: <StockChartDetailPage /> },
+      { path: "/admin/inventory-alarm", element: <StockAlarmPage /> },
     ],
   },
 ]);
