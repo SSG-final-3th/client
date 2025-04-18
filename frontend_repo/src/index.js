@@ -23,12 +23,8 @@ import KakaoCallback from "./util/KakaoCallback";
 
 // 마이페이지 관련
 import Mypage, { loader as mypageLoader } from "./pages/mypage/Mypage";
-import EditProfile, {
-  loader as editProfileLoader,
-} from "./pages/mypage/EditProfile";
-import DeleteAccount, {
-  loader as deleteAccountLoader,
-} from "./pages/mypage/DeleteAccount";
+import EditProfile, { loader as editProfileLoader } from "./pages/mypage/EditProfile";
+import DeleteAccount, { loader as deleteAccountLoader } from "./pages/mypage/DeleteAccount";
 import MyOrderInfo from "./pages/mypage/MyOrderInfo";
 import MyReviews from "./pages/mypage/MyReview";
 import EditCategory from "./pages/mypage/EditCategory";
@@ -100,6 +96,7 @@ import StockAlarmPage from "./pages/adminchart/StockAlarmPage";
 import ChatbotComponent from "./components/ui/chatbot/ChatbotComponent";
 
 import NaverLoginCallback from "./components/ui/button/NaverCallback";
+import OrderRedirect from "./pages/order/OrderRedirect";
 
 const router = createBrowserRouter([
   {
@@ -251,6 +248,7 @@ const router = createBrowserRouter([
       { path: "/admin/stock", element: <StockPage /> },
       { path: "/stock-chart/:productCode", element: <StockChartDetailPage /> },
       { path: "/admin/inventory-alarm", element: <StockAlarmPage /> },
+      { path: "/order/redirect", element: <OrderRedirect /> },
     ],
   },
 ]);
