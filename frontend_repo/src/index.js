@@ -100,7 +100,9 @@ import StockAlarmPage from "./pages/adminchart/StockAlarmPage";
 import ChatbotComponent from "./components/ui/chatbot/ChatbotComponent";
 
 import NaverLoginCallback from "./components/ui/button/NaverCallback";
-
+//pwa코드드
+import * as serviceWorker from "./serviceWorker";
+serviceWorker.register(); // ← 이렇게 바꿔줘야 PWA가 동작해!
 const router = createBrowserRouter([
   {
     path: "/search",

@@ -27,7 +27,7 @@ export async function getUserQuestions(userId, token) {
 export async function deleteQuestion(questionId, token) {
   try {
     const response = await axios.delete(
-      `http://localhost:8090/emart/questions/delete/${questionId}`,
+      `https://morek9.click/questions/delete/${questionId}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
@@ -71,7 +71,7 @@ const CustomerServiceScreen = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:8090/emart/questions/${userId}`,
+        `https://morek9.click/questions/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

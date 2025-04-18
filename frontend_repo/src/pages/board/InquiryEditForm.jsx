@@ -23,7 +23,7 @@ const InquiryEditForm = ({ inquiry, onBack }) => {
     try {
       // 실제 API 엔드포인트는 /update/{questionId}로 수정
       const response = await axios.put(
-        `http://localhost:8090/emart/questions/update/${inquiry.id}`, // questionId를 URL에 추가
+        `https://morek9.click/questions/update/${inquiry.id}`, // questionId를 URL에 추가
         {
           title: title,
           content: content,

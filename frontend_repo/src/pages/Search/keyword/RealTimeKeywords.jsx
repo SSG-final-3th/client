@@ -12,7 +12,7 @@ import axios from "axios";
 
 // API 호출용 axios 인스턴스 생성
 const instance = axios.create({
-  baseURL: "http://localhost:8090/emart", // baseURL 설정 (프로젝트에 맞게 수정 필요)
+  baseURL: "https://morek9.click", // baseURL 설정 (프로젝트에 맞게 수정 필요)
   timeout: 50000,
   headers: { "Content-Type": "application/json" },
 });

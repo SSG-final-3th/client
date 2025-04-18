@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8090/emart/auth/kakao";
+const BASE_URL = "https://morek9.click/auth/kakao";
 
 // 카카오 로그인 요청 함수
 export const kakaoLogin = async (code) => {
@@ -16,7 +16,10 @@ export const kakaoLogin = async (code) => {
     //  전체 응답 반환해야 userId, role도 사용할 수 있음
     return response.data;
   } catch (error) {
-    console.error(" 카카오 로그인 실패:", error.response ? error.response.data : error.message);
+    console.error(
+      " 카카오 로그인 실패:",
+      error.response ? error.response.data : error.message
+    );
     throw error;
   }
 };

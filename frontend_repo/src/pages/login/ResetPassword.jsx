@@ -28,14 +28,11 @@ export default function ResetPassword() {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:8090/emart/reset-password",
-        {
-          userId: formData.userId,
-          phoneNumber: formData.phone,
-          newPassword: formData.newPassword,
-        }
-      );
+      const response = await axios.post("https://morek9.click/reset-password", {
+        userId: formData.userId,
+        phoneNumber: formData.phone,
+        newPassword: formData.newPassword,
+      });
 
       if (response.status === 200) {
         alert("비밀번호가 성공적으로 재설정되었습니다.");

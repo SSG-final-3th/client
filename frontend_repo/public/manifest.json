@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Mall&Mall",
+  "name": "Mall & Mall Online Shop",
+
   "icons": [
     {
       "src": "favicon.ico",

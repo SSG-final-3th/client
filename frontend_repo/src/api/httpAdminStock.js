@@ -2,7 +2,7 @@ import axios from "axios";
 
 // 공통 인스턴스 설정 (기반 경로: /emart)
 const instance = axios.create({
-  baseURL: "http://localhost:8090/emart",
+  baseURL: "https://morek9.click",
   timeout: 10000,
   headers: { "Content-Type": "application/json" },
 });
@@ -38,7 +38,10 @@ export async function fetchAverageStockHistoryByProduct(productCode) {
 }
 
 // 지점별 재고량 추이 조회 (날짜별 해당 지점 잔량)
-export async function fetchStockHistoryByProductAndBranch(productCode, branchName) {
+export async function fetchStockHistoryByProductAndBranch(
+  productCode,
+  branchName
+) {
   const jwtAuthToken = localStorage.getItem("jwtAuthToken");
 
   if (!jwtAuthToken) {
@@ -47,9 +50,12 @@ export async function fetchStockHistoryByProductAndBranch(productCode, branchNam
 
   const encodedBranch = encodeURIComponent(branchName);
 
-  const response = await instance.get(`/inventory/log/${productCode}/${encodedBranch}`, {
-    headers: { Authorization: `Bearer ${jwtAuthToken}` },
-  });
+  const response = await instance.get(
+    `/inventory/log/${productCode}/${encodedBranch}`,
+    {
+      headers: { Authorization: `Bearer ${jwtAuthToken}` },
+    }
+  );
 
   return response.data;
 }

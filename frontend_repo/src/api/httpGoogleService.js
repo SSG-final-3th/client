@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8090/emart/auth/google";
+const BASE_URL = "https://morek9.click/auth/google";
 
 // 구글 로그인 요청 함수
 export const googleLogin = async (token) => {

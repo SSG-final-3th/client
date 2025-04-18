@@ -17,7 +17,7 @@ export default function FindId() {
     }
 
     try {
-      const response = await axios.post("http://localhost:8090/emart/findid", {
+      const response = await axios.post("https://morek9.click/findid", {
         userName,
         email,
       });

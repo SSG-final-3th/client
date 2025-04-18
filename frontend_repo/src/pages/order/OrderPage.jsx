@@ -158,7 +158,7 @@ const OrderPage = () => {
       }
 
       const response = await axios.post(
-        "http://localhost:8090/emart/admin/branch/nearestWithStock",
+        "https://morek9.click/admin/branch/nearestWithStock",
         {
           latitude: latitude,
           longitude: longitude,
@@ -253,7 +253,7 @@ const OrderPage = () => {
         }
       } else {
         const fallbackResponse = await axios.post(
-          "http://localhost:8090/emart/admin/branch/nearest",
+          "https://morek9.click/admin/branch/nearest",
           {
             latitude: latitude,
             longitude: longitude,

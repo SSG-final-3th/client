@@ -14,7 +14,7 @@ const AnswerForm = ({ questionId, onAnswerAdded }) => {
 
     try {
       const response = await axios.post(
-        `http://localhost:8090/emart/answers/add/${questionId}`,
+        `https://morek9.click/answers/add/${questionId}`,
         answer,
         {
           headers: {

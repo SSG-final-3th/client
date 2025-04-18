@@ -7,9 +7,7 @@ const API_BASE_URL = "http://localhost:8090";
  */
 export const getNaverLoginUrl = async () => {
   try {
-    const response = await fetch(
-      "http://localhost:8090/emart/login/naver/login"
-    );
+    const response = await fetch("https://morek9.click/login/naver/login");
     const result = await response.json();
     console.log("✅ 백엔드 응답 데이터:", result);
 

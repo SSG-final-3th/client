@@ -7,20 +7,17 @@ export const sendChatMessage = async (
   productCode = null
 ) => {
   try {
-    const response = await fetch(
-      "http://localhost:8090/emart/api/chatbot/message",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          message,
-          sessionId,
-          productCode,
-        }),
-      }
-    );
+    const response = await fetch("https://morek9.click/api/chatbot/message", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        message,
+        sessionId,
+        productCode,
+      }),
+    });
 
     if (!response.ok) {
       throw new Error(`서버 오류: ${response.status}`);
@@ -41,7 +38,7 @@ export const sendChatMessage = async (
 export const clearChatSession = async (sessionId) => {
   try {
     const response = await fetch(
-      `http://localhost:8090/emart/api/chatbot/session/${sessionId}`,
+      `https://morek9.click/api/chatbot/session/${sessionId}`,
       {
         method: "DELETE",
       }
